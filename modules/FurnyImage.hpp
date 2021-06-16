@@ -1,11 +1,13 @@
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
+#define BYTE_BOUND(value) value < 0 ? 0 : (value > 255 ? 255 : value)
 
 #include <stdint.h>
 #include <cstdint>
 #include <cstddef>
 #include <math.h>
 #include "Rgb.hpp"
+#include "Point.hpp"
 
 
 enum ImageType { PNG, JPG, BMP};
@@ -41,7 +43,9 @@ public:
 
     // ImageProc
     Image& flip(uint8_t direction = 0);
-
+    Image& overlap(const Image& img, Point &&point);
+    Image& overlap(const Image& img, Point &point);
+    Image& toGray();
 };
 
 
