@@ -1,0 +1,7 @@
+#ifndef IMAGEMATH_HPP
+#define IMAGEMATH_HPP
+
+
+
+
+#endif // IMAGEMATH_HPP
