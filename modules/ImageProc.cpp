@@ -107,12 +107,22 @@ Image& Image::toGray()
 		printf("this image is already in grayscale");
 		return *this;
 	}
+	
+	uint8_t* grayImage = new uint8_t[w*h*1];
 
-	for(size_t i = 0; i < size; i+=channels)
+	for(size_t i = 0, j = 0; i < size; i+=channels, j++)
 	{
 		int gray = 0.2126*data[i] + 0.7152*data[i+1] + 0.0722*data[i+2];
-		memset(data+i, gray, 3);
+		memset(grayImage+j, gray, 1);
 	}
+	channels = 1;
+	size = w*h*channels;
+
+	delete[] data;
+	data = grayImage;
+	grayImage = nullptr;
+
+	return *this;
 }
 
 Image& Image::crop(Point p1, Point p2 )
@@ -136,4 +146,51 @@ Image& Image::crop(Point p1, Point p2 )
 	*this = cropped;
 	return *this;
 
+}
+
+uint8_t binary(uint8_t value, uint8_t tresh) {return value > tresh ? 255 : 0;}
+uint8_t binaryInv(uint8_t value, uint8_t tresh) {return value > tresh ? 0 : 255;}
+uint8_t trunc(uint8_t value, uint8_t tresh) {return value > tresh ? tresh : value;}
+uint8_t tozero(uint8_t value, uint8_t tresh) {return value > tresh ? value : 0;}
+uint8_t tozeroInv(uint8_t value, uint8_t tresh) {return value > tresh ? 0 : value;}
+
+
+Image& Image::thresholding(uint8_t treshValue, TreshType type)
+{
+	treshValue = BYTE_BOUND(treshValue);
+	
+
+	if(channels >= 3) this->toGray();
+
+	uint8_t (*tresh)(uint8_t, uint8_t) ;
+
+	switch (type)
+	{
+		case BINARY:
+			tresh = binary;
+			break;
+		case BINARY_INV:
+			tresh = binaryInv;
+			break;
+		case TRUNC:
+			tresh = trunc;
+			break;
+		case TOZERO:
+			tresh = tozero;
+			break;
+		case TOZERO_INV:
+			tresh = tozeroInv;
+			break;
+		default:
+			tresh = binary;
+			break;
+	}
+
+	for(size_t i = 0; i < size; i++)
+	{
+		data[i] = tresh(data[i], treshValue);
+	}
+
+	return *this;
+	
 }

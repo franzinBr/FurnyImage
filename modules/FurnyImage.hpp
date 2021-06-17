@@ -11,6 +11,7 @@
 
 
 enum ImageType { PNG, JPG, BMP};
+enum TreshType { BINARY, BINARY_INV, TRUNC, TOZERO, TOZERO_INV};
 
 class Image
 {
@@ -47,6 +48,7 @@ public:
     Image& overlap(const Image& img, Point &point);
     Image& toGray();
     Image& crop(Point p1,  Point p2 );
+    Image& thresholding(uint8_t treshValue, TreshType type);
 };
 
 
