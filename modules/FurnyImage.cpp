@@ -1,9 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
-
-#define BYTE_BOUND(value) value < 0 ? 0 : (value > 255 ? 255 : value)
-
 #include "FurnyImage.hpp"
 #include "../external_dependences/stb_image.h"
 #include "../external_dependences/stb_image_write.h"
