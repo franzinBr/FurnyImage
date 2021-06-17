@@ -1,5 +1,7 @@
 #ifndef POINT_HPP
-#define PONT_HPP
+#define POINT_HPP
+
+#include <stdlib.h>
 
 class Point
 {
@@ -11,8 +13,10 @@ public:
 
     Point();
     Point(int x, int y);
+
+    static int* lengthXY(Point p1, Point p2);
     
 };
 
-#endif // RGB_HPP
+#endif // POINT_HPP
 
