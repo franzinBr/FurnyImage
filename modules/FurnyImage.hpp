@@ -46,6 +46,7 @@ public:
     Image& overlap(const Image& img, Point &&point);
     Image& overlap(const Image& img, Point &point);
     Image& toGray();
+    Image& crop(Point p1,  Point p2 );
 };
 
 

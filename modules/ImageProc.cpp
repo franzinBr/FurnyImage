@@ -1,4 +1,5 @@
 #include "FurnyImage.hpp"
+#include "Point.hpp"
 #include <cstring>
 #include <stdio.h>
 
@@ -112,4 +113,27 @@ Image& Image::toGray()
 		int gray = 0.2126*data[i] + 0.7152*data[i+1] + 0.0722*data[i+2];
 		memset(data+i, gray, 3);
 	}
+}
+
+Image& Image::crop(Point p1, Point p2 )
+{
+
+	int *len = Point::lengthXY(p1, p2);
+	Image cropped(len[0], len[1], channels);
+	memset(cropped.data, 0, cropped.size);
+	Point first(p1.x < p2.x ? p1.x : p2.x, p1.y < p2.y ? p1.y : p2.y);
+
+	for(uint16_t y = 0; y < len[1];++y) 
+	{
+		if(y + len[1] >= h) break;
+		for(uint16_t x = 0;x < len[0];++x) 
+		{
+			if(x + len[0] >= w) break;
+			memcpy(&cropped.data[(x + y * len[0]) * channels], &data[(x + first.x + (y + first.y) * w) * channels], channels);
+		}
+	}
+
+	*this = cropped;
+	return *this;
+
 }
