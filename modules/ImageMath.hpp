@@ -12,5 +12,6 @@ void inverseFastFourierTransform(uint32_t n, std::complex<double> X[], std::comp
 void discreteFourierTransform2D(uint32_t m, uint32_t n, std::complex<double> x[], std::complex<double>* X);
 void inverseDiscreteFourierTransform2D(uint32_t m, uint32_t n, std::complex<double> X[], std::complex<double>* x);
 
+inline void pointWiseMultiplication(uint64_t l, std::complex<double> a[], std::complex<double> b[], std::complex<double>* p);
 
 #endif // IMAGEMATH_HPP
