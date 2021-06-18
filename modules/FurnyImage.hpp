@@ -12,6 +12,7 @@
 
 enum ImageType { PNG, JPG, BMP};
 enum TreshType { BINARY, BINARY_INV, TRUNC, TOZERO, TOZERO_INV};
+enum ConvPadType {ZERO, NEAR_NEIGHBOR, CYCLIC};
 
 class Image
 {
@@ -49,6 +50,9 @@ public:
     Image& toGray();
     Image& crop(Point p1,  Point p2 );
     Image& thresholding(uint8_t treshValue, TreshType type);
+
+    // Convolution 
+    Image& conv(uint8_t channel, uint32_t ker_w, uint32_t ker_h, double ker[], uint32_t cr, uint32_t cc, ConvPadType convType = NEAR_NEIGHBOR);
 };
 
 
