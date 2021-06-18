@@ -8,6 +8,7 @@
 #include <math.h>
 #include "Rgb.hpp"
 #include "Point.hpp"
+#include "ImageMath.hpp"
 
 
 enum ImageType { PNG, JPG, BMP};
@@ -53,6 +54,7 @@ public:
 
     // Convolution 
     Image& conv(uint8_t channel, uint32_t ker_w, uint32_t ker_h, double ker[], uint32_t cr, uint32_t cc, ConvPadType convType = NEAR_NEIGHBOR);
+    Image& convFourier(uint8_t channel, uint32_t ker_w, uint32_t ker_h, double ker[], uint32_t cr, uint32_t cc, ConvPadType convType = NEAR_NEIGHBOR);
 };
 
 

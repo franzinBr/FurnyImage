@@ -116,7 +116,7 @@ void inverseDiscreteFourierTransform2D(uint32_t m, uint32_t n, std::complex<doub
     delete[] intermediate;
 }
 
-inline void pointWiseMultiplication(uint64_t l, std::complex<double> a[], std::complex<double> b[], std::complex<double>* p)
+void pointWiseMultiplication(uint64_t l, std::complex<double> a[], std::complex<double> b[], std::complex<double>* p)
 {
     for(uint64_t k = 0; k < l; ++k)
     {
