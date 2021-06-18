@@ -94,3 +94,24 @@ void discreteFourierTransform2D(uint32_t m, uint32_t n, std::complex<double> x[]
     }
     delete[] intermediate;
 }
+
+void inverseDiscreteFourierTransform2D(uint32_t m, uint32_t n, std::complex<double> X[], std::complex<double>* x)
+{
+    std::complex<double>* intermediate = new std::complex<double>[m*n];
+
+    for(uint32_t j = 0; j < n; ++j)
+    {
+        inverseFastFourierTransform(m, X+j*m, intermediate+j*m);
+    }
+
+    for(uint32_t i = 0; i < m; ++i)
+    {
+        for(uint32_t j = 0; j < n; ++j)
+        {
+            x[i*n+j] = intermediate[j*m+i]; 
+        }
+        inverseFastFourierTransform(n, x+i*n, x+i*n);
+    }
+
+    delete[] intermediate;
+}
